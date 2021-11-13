@@ -10,6 +10,10 @@
     text-align: center; 
     margin: auto;
 }
+.img {
+    /* display: flex; */
+    justify-content: center;
+}
 
 .img-show {
     /* position: absolute; */
@@ -17,6 +21,7 @@
     height: 600px;
     background-repeat: no-repeat;
     background-size: contain;
+    background-clip: border-box;
     flex: 1 0 100%;
 }
 

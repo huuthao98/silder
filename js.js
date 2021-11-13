@@ -50,11 +50,21 @@ const app = {
             _this.nextImage()
             
         }
+        prevBtn.onclick = function() {
+            _this.nextImage()
+        }
     },
     nextImage: function() {
         this.currentIndex++ 
         if (this.currentIndex >= this.images.length) {
             this.currentIndex = 0
+        }
+        this.loadCurrentImage()
+    },
+    prevImage: function() {
+        this.currentIndex-- 
+        if (this.currentIndex < 0 ) {
+            this.currentIndex = this.images.length -1
         }
         this.loadCurrentImage()
     },
