@@ -5,7 +5,7 @@ const nextBtn = $('.btn-next')
 const prevBtn = $('.btn-prev')
 const listImg =  $('.img-list')
 const listDot = $('.list-dot')
-
+const liDot = $('.li-dot')
 const app = {
     currentIndex: 0,
     images: [
@@ -47,16 +47,17 @@ const app = {
         //xu ly next image
         nextBtn.onclick = function() {
             _this.nextImage()
-            
+            _this.render()
         }
         //xu ly prev image
         prevBtn.onclick = function() {
             _this.prevImage()
+            _this.render()
         }
         //xu ly auto next image 
         setInterval(function() {
-            _this.nextImage()
-        }, 50000)
+            nextBtn.click()
+        }, 10000)
         // xu ly click vào list dot
         listDot.onclick = function(e) {
         if(e.target.closest('.li-dot')) {
