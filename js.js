@@ -4,19 +4,16 @@ const $$ = document.querySelectorAll.bind(document)
 const nextBtn = $('.btn-next')
 const prevBtn = $('.btn-prev')
 const listImg =  $('.img-list')
+const listDot = $('.list-dot')
 
 const app = {
     currentIndex: 0,
     images: [
-        {path: './pictures/1.jpg'},
-        {path: './pictures/2.jpg'},
-        {path: './pictures/3.jpg'},
-        {path: './pictures/4.jpg'},
-        {path: './pictures/5.jpg'},
-        {path: './pictures/6.jpg'},
-        {path: './pictures/7.jpg'},
-        {path: './pictures/8.jpg'},
-        {path: './pictures/9.jpg'}
+        {image: './pictures/11.jpeg'},
+        {image: './pictures/12.jpeg'},
+        {image: './pictures/13.jpeg'},
+        {image: './pictures/14.jpeg'}
+        
     ],
 
     render: function() {
@@ -29,12 +26,12 @@ const app = {
         // })
         // listImg.innerHTML = htmlListImg.join('');
         //render list dot
-        const htmlListDot = this.images.map(() => {
+        const htmlListDot = this.images.map((image, index) => {
             return `
-            <li class="li-dot"></li>
+            <li class="li-dot ${index === this.currentIndex ? 'active' : ''}" data-index="${index}" ></li>
             `
         })
-        $('.list-dot').innerHTML = htmlListDot.join('');
+        listDot.innerHTML = htmlListDot.join('');
 
     },
     defineProperties: function() {
@@ -46,12 +43,28 @@ const app = {
     },
     handleEvent: function() {
         const _this = this
+
+        //xu ly next image
         nextBtn.onclick = function() {
             _this.nextImage()
             
         }
+        //xu ly prev image
         prevBtn.onclick = function() {
+            _this.prevImage()
+        }
+        //xu ly auto next image 
+        setInterval(function() {
             _this.nextImage()
+        }, 50000)
+        // xu ly click vào list dot
+        listDot.onclick = function(e) {
+        if(e.target.closest('.li-dot')) {
+                _this.currentIndex = Number(e.target.closest('.li-dot').dataset.index)
+                _this.loadCurrentImage()
+                _this.render()
+            }
+
         }
     },
     nextImage: function() {
@@ -70,8 +83,9 @@ const app = {
     },
     loadCurrentImage: function() {
         const imgShow = $('.img-show')
-        imgShow.style.backgroundImage = `url('${this.currentImage.path}')`
+        imgShow.style.backgroundImage = `url('${this.currentImage.image}')`
     },
+
     
     start: function() {
         // dinh nghia thuoc tinh
@@ -80,8 +94,11 @@ const app = {
         this.handleEvent()
         //tai anh đầu tiên khi chạy ứng dung 
         this.loadCurrentImage()
+    
         //render giao dien nguoi dung
         this.render()
+        
+        
     }
 }
 app.start()
